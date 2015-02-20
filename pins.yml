@@ -1,0 +1,7 @@
+18:
+  mode: IN
+  initial: HIGH
+  resistor: PUD_UP
+  event: BOTH
+  handler: send_stall_activity
+  bounce: 300
