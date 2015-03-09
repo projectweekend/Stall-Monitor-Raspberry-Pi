@@ -55,7 +55,6 @@ class StallMonitor(object):
     def start(self):
         while True:
             self._gpio.wait_for_edge(self._pin, self._gpio.BOTH)
-            print("Door changed!")
             self.send_stall_activity()
 
     def stop(self):
