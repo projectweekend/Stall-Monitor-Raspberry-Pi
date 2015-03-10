@@ -59,6 +59,7 @@ class StallMonitor(object):
 
     def stop(self):
         self._gpio.cleanup()
+        self._broadcaster.stop()
 
 
 def main():
