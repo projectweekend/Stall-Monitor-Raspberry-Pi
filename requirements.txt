@@ -1,0 +1,2 @@
+PiCloud-Client==1.0.0
+RPi.GPIO==0.5.11
