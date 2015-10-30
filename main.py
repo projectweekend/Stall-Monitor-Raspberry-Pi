@@ -5,10 +5,6 @@ import RPi.GPIO as GPIO
 from picloud_client import PiCloud
 
 
-PIN = 18
-LAST_READING = None
-
-
 class StallMonitor(object):
 
     def __init__(self, pin_num, gpio, picloud):
