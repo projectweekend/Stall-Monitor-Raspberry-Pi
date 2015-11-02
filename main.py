@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+from time import sleep
 import RPi.GPIO as GPIO
 from picloud_client import PiCloud
 
@@ -11,7 +12,6 @@ class StallMonitor(object):
         self._pin_num = pin_num
         self._gpio = gpio
         self._picloud = picloud
-        self._last_reading = None
 
         self._gpio.setmode(self._gpio.BCM)
         self._gpio.setwarnings(False)
@@ -23,12 +23,10 @@ class StallMonitor(object):
 
     def run(self):
         while True:
-            self._gpio.wait_for_edge(self._pin_num, self._gpio.BOTH)
             current_reading = self._gpio.input(self._pin_num)
-            if self._last_reading is None or self._last_reading != current_reading:
-                self._last_reading = current_reading
-                status = 'open' if current_reading else 'closed'
-                self._picloud.publish(event='stall', data=status)
+            status = 'open' if current_reading else 'closed'
+            self._picloud.publish(event='stall', data=status)
+            sleep(1)
 
     def stop(self):
         self._gpio.cleanup()
