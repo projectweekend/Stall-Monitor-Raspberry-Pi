@@ -33,7 +33,8 @@ class StallMonitor(object):
 
 
 def main():
-    stall_monitor = StallMonitor(pin_num=18, gpio=GPIO, picloud=PiCloud())
+    picloud = PiCloud(client_name='Stall-Monitor-Raspberry-Pi')
+    stall_monitor = StallMonitor(pin_num=18, gpio=GPIO, picloud=picloud)
     try:
         stall_monitor.run()
     except:
