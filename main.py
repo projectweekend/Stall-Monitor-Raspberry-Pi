@@ -1,9 +1,17 @@
 #!/usr/bin/env python
 
+import os
 import sys
 from time import sleep
 import RPi.GPIO as GPIO
-from picloud_client import PiCloud
+from picloud_client import PubClient
+
+
+PICLOUD_URL = os.getenv('PICLOUD_URL')
+assert PICLOUD_URL
+
+PICLOUD_API_KEY = os.getenv('PICLOUD_API_KEY')
+assert PICLOUD_API_KEY
 
 
 class StallMonitor(object):
@@ -33,7 +41,10 @@ class StallMonitor(object):
 
 
 def main():
-    picloud = PiCloud(client_name='Stall-Monitor-Raspberry-Pi')
+    picloud = PubClient(
+        url=PICLOUD_URL,
+        api_key=PICLOUD_API_KEY,
+        client_name='Stall-Monitor-Raspberry-Pi')
     stall_monitor = StallMonitor(pin_num=18, gpio=GPIO, picloud=picloud)
     try:
         stall_monitor.run()
