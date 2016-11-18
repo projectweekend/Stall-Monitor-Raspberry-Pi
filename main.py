@@ -14,7 +14,8 @@ IOT_CA_ROOT = '/home/pi/certs/root.pem'
 IOT_CERT = '/home/pi/certs/certificate.pem.crt'
 IOT_KEY = '/home/pi/certs/private.pem.key'
 IOT_URL = os.getenv('IOT_URL')
-DEVICE_ID = 'stall'
+IOT_TOPIC = 'stall'
+DEVICE_ID = 1
 assert IOT_URL
 
 
@@ -38,6 +39,7 @@ def send_close():
         'timestamp': timestamp(),
         'event': 'close'
     })
+    aws_iot.publish(topic=IOT_TOPIC, payload=data)
     print(data)
 
 
@@ -47,6 +49,7 @@ def send_open():
         'timestamp': timestamp(),
         'event': 'open'
     })
+    aws_iot.publish(topic=IOT_TOPIC, payload=data)
     print(data)
 
 
