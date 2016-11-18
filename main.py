@@ -16,6 +16,7 @@ def main():
     button = Button(5, bounce_time=0.3)
     button.when_pressed = say_hello
     button.when_released = say_bye
+    pause()
 
 
 if __name__ == "__main__":
