@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 
+from datetime import datetime
+import json
 import os
 import ssl
 from signal import pause
+from time import mktime
 from gpiozero import Button
 import paho.mqtt.client as paho
 
@@ -11,6 +14,7 @@ IOT_CA_ROOT = '/home/pi/certs/root.pem'
 IOT_CERT = '/home/pi/certs/certificate.pem.crt'
 IOT_KEY = '/home/pi/certs/private.pem.key'
 IOT_URL = os.getenv('IOT_URL')
+DEVICE_ID = 'stall'
 assert IOT_URL
 
 
@@ -23,12 +27,27 @@ aws_iot.tls_set(
 aws_iot.connect(IOT_URL, 8883)
 
 
+def timestamp():
+    now = datetime.utcnow()
+    return int(mktime(now.timetuple()))
+
+
 def send_close():
-    print('hello')
+    data = json.dumps({
+        'id': DEVICE_ID,
+        'timestamp': timestamp(),
+        'event': 'close'
+    })
+    print(data)
 
 
 def send_open():
-    print('bye')
+    data = json.dumps({
+        'id': DEVICE_ID,
+        'timestamp': timestamp(),
+        'event': 'open'
+    })
+    print(data)
 
 
 def main():
