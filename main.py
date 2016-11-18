@@ -13,7 +13,7 @@ def say_bye():
 
 
 def main():
-    button = Button(5, bounce_time=0.3)
+    button = Button(5, bounce_time=0.25)
     button.when_pressed = say_hello
     button.when_released = say_bye
     pause()
