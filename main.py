@@ -10,8 +10,10 @@ def say_yeah():
 
 def main():
     button = Button(5, bounce_time=0.3)
-    button.when_pressed = say_yeah
-    pause()
+    while True:
+        print('hey')
+        button.wait_for_press()
+        say_yeah()
 
 
 if __name__ == "__main__":
